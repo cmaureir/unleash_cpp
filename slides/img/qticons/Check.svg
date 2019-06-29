@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="78px" height="78px" viewBox="0 0 78 78" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Check_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-8.7%" y="-8.2%" width="117.3%" height="121.8%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="12" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="15" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.0352941176   0 0 0 0 0.062745098   0 0 0 0 0.168627451  0 0 0 0.13 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <linearGradient x1="100%" y1="100%" x2="-22.8515625%" y2="-33.2356771%" id="linearGradient-2">
+            <stop stop-color="#6FFF80" offset="0%"></stop>
+            <stop stop-color="#43CE57" offset="37.2587344%"></stop>
+            <stop stop-color="#425FD0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Mainpage" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mainpage_Layout_V4_Megamenu" transform="translate(-394.000000, -7271.000000)" stroke="url(#linearGradient-2)" stroke-width="1.5">
+            <g id="Content" transform="translate(-44.000000, 1530.000000)">
+                <g id="Buynow" transform="translate(68.000000, 3932.000000)">
+                    <g transform="translate(92.000000, 1527.000000)" id="Rectangle-46">
+                        <g filter="url(#filter-1)" transform="translate(0.000000, 37.000000)">
+                            <g id="Check_icon" transform="translate(307.000000, 262.000000)">
+                                <path d="M19.7002,7.3999 C19.9002,8.1999 20.0002,9.0999 20.0002,9.9999 C20.0002,15.4999 15.5002,19.9999 10.0002,19.9999 C4.5002,19.9999 0.0002,15.4999 0.0002,9.9999 C0.0002,4.4999 4.5002,-0.0001 10.0002,-0.0001 C11.9002,-0.0001 13.7002,0.4999 15.3002,1.4999" id="Stroke-1"></path>
+                                <polyline id="Stroke-3" stroke-linecap="square" points="6 8 10 12 21 1"></polyline>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

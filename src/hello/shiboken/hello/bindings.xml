@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<typesystem package="simple">
+    <primitive-type name="std::string"/>
+    <function signature="hello()"/>
+</typesystem>

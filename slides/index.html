@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Unleash the power of C++ in Python</title>
+
+  <meta name="description" content="A guide through the bindings generation process">
+  <meta name="author" content="Cristian Maureira-Fredes">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/qt.css" id="theme">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+  if( window.location.search.match( /print-pdf/gi ) ) {
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = 'css/print/pdf.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  }
+  </script>
+
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<!--*****************************************************************************-->
+<body>
+<div class="reveal">
+<div class="slides">
+  <!--***************************************************************************-->
+  <section>
+    <h2 style="font-size: 120%;"><i>Unleash</i> the <i class="blue-light">power of C++</i> in <i class="yellow">Python</i></h2>
+    <h3 style="font-size: 70%;text-decoration: none;">A guide through the bindings generation process</h3>
+    <p style="font-size: 60%;margin-top: 15%;">
+      Dr. <i class="yellow">Cristián</i> Maureira-Fredes<br/>
+      <i class="blue-light">Software Engineer</i> @ TQtC
+    </p>
+<!--
+  <div id="right" style="margin-top: 10%;">
+    <img style="width: 40%; background: 0; border: 0;" src="img/cpp_logo.svg" />
+    <img style="width: 43%; background: 0; border: 0;" src="img/python.svg" />
+  </div>
+-->
+  </section>
+  <!--***************************************************************************-->
+  <section>
+    <div id="left">
+        <h3>C++</h3>
+        <ul style=>
+
+            <li class="fragment fade-in" data-fragment-index="1">General purpose</li>
+            <li class="fragment fade-in" data-fragment-index="2">Multi paradigm</li>
+            <li class="fragment fade-in" data-fragment-index="3">Statically typed</li>
+            <li class="fragment fade-in" data-fragment-index="4">Compiled</li>
+            <li class="fragment fade-in" data-fragment-index="5">Provides low-level memory manipulation</li>
+        </ul>
+    </div>
+    <div id="right" style="text-align: left;">
+        <h3>Python</h3>
+        <ul>
+            <li class="fragment fade-in" data-fragment-index="1" >General purpose</li>
+            <li class="fragment fade-in" data-fragment-index="2">Multi paradigm</li>
+            <li class="fragment fade-in" data-fragment-index="3"><i class="blue-light">Dynamically</i> typed</li>
+            <li class="fragment fade-in" data-fragment-index="4"><i class="blue-light">Interpreted</i></li>
+            <li class="fragment fade-in" data-fragment-index="5"><i class="blue-light">Automatic</i> memory management</li>
+            <li class="fragment fade-in" data-fragment-index="6"><i class="green">Code readability</i></li>
+        </ul>
+    </div>
+  </section>
+  <!--***************************************************************************-->
+  <section>
+    <pre style="font-size: 60%;width: 80%;"><code class="python" data-trim data-noescape>
+if __name__ == "__main__":
+
+    print("Hello EuroPython 2019")
+        </code></pre>
+  </section>
+  <section>
+    <pre style="font-size: 60%;width: 80%;"><code class="c++" data-trim data-noescape>
+#include &lt;iostream&gt;
+
+int main() {
+
+    std::cout &lt;&lt; "Hello EuroPython 2019";
+    return 0;
+}
+        </code></pre>
+  </section>
+  <section>
+    <pre style="font-size: 50%; width: 90%;"><code class="c++" data-trim data-noescape>
+template &lt;bool C, typename TR, typename FR&gt;
+class if_;
+template &lt;typename TR, typename FR&gt;
+struct if_&lt;true, TR, FR&gt;{ typedef TR result;};
+template &lt;typename TR, typename FR&gt;
+struct if_&lt;false, TR, FR&gt; { typedef FR result;};
+int main() {
+  typename if_&lt;true, int, void*&gt;::result n(3);
+  typename if_&lt;false, int, void*&gt;::result p(&amp;n);
+  typedef typename if_&lt;(sizeof(void *) &gt; sizeof(uint32_t)),
+        uint64_t, uint32_t&gt;::result i_ptr_t;
+  i_ptr_t c_p = reinterpret_cast&lt;i_ptr_t&gt;(p);
+}
+        </code></pre>
+    <p style="font-size: 50%;">Compile-time if <a href="https://en.wikibooks.org/wiki/C%2B%2B_Programming/Templates/Template_Meta-Programming">Template Meta Programming (Wikibooks)</a></p>
+    (╯°□°）╯︵ ┻━┻
+  </section>
+  <section>
+    <h3>Latest C++ standards: Types</h3>
+    <pre style="font-size: 50%;width: 80%;"><code class="c++" data-trim data-noescape>
+    const std::vector<int> v(1);
+    auto a = v[0];        // a: type int
+    auto c = 0;           // c: type int
+    auto d = c;           // d: type int
+    decltype(c) e;        // e: type int, from c
+    decltype((c)) f = c;  // f: type int&amp;, (c) is an lvalue
+    decltype(0) g;        // g: type int, 0 is an rvalue
+        </code></pre>
+    <p style="font-size: 50%;">
+        <a sytle="font-size: 50%;" href="https://gcc.gnu.org/projects/cxx-status.html#cxx11">https://gcc.gnu.org/projects/cxx-status.html#cxx11</a>
+    </p>
+  </section>
+  <section>
+    <h3>Latest C++ standards: Loops</h3>
+    <pre style="font-size: 50%;width: 80%;"><code class="c++" data-trim data-noescape>
+    int my_array[5] = {1, 2, 3, 4, 5};
+    // double the value of each element in my_array:
+    for (int&amp; x : my_array)
+        x *= 2;
+
+    // similar but also using type inference
+    // for array elements
+    for (auto&amp; x : my_array)
+        x *= 2;
+
+    // ranges
+    std::vector numbers = { 1, 2, 3, 4, 5 };
+    auto range = numbers | view::transform(someFunction);
+
+        </code></pre>
+    <p style="font-size: 50%;">
+        <a sytle="font-size: 50%;" href="https://gcc.gnu.org/projects/cxx-status.html#cxx11">https://gcc.gnu.org/projects/cxx-status.html#cxx11</a>
+    </p>
+  </section>
+  <section>
+    <h3>Latest C++ standards: Lambdas</h3>
+    <pre style="font-size: 60%;width: 80%;"><code class="c++" data-trim data-noescape>
+    // [](int x, int y) -&gt; int { return x + y; }
+
+    std::vector<int> some_list{ 1, 2, 3, 4, 5 };
+    int total = 0;
+    std::for_each(begin(some_list),
+                  end(some_list),
+                  [&amp;total](int x) {
+        total += x;
+    });
+        </code></pre>
+    <p style="font-size: 50%;">
+        <a sytle="font-size: 50%;" href="https://gcc.gnu.org/projects/cxx-status.html#cxx11">https://gcc.gnu.org/projects/cxx-status.html#cxx11</a>
+    </p>
+  </section>
+  <section>
+    <h3>...</h3>
+    C++ wants to go up.
+    Python wants to go down.
+  </section>
+  <!--***************************************************************************-->
+  <section>
+    <h3>Looking under <i class="yellow-light">Python</i></h3>
+    <pre style="font-size: 80%;width: 80%;"><code class="c" data-trim data-noescape>
+// Include/object.h
+typedef struct _object {
+    _PyObject_HEAD_EXTRA
+    Py_ssize_t ob_refcnt;
+    struct _typeobject *ob_type;
+} PyObject;
+        </code></pre>
+  </section>
+  <section>
+    <img style="width: 60%;" src="img/joke.jpg"/>
+  </section>
+  <!--***************************************************************************-->
+  <section>
+    <h3>Creating a <i class="yellow-light">CPython</i> module</h3>
+  </section>
+  <!--***************************************************************************-->
+  <section>
+    <h3>so...</h3>
+    <h2>What is <i class="green">Qt</i>?</h2>
+  </section>
+  <section>
+    <h3>Qt <i class="green">/kjut/</i></h3>
+    <p style="font-size: 100%;margin-top: 5%;">
+        Cross platform <i class="yellow">C++</i> framework, for <i class="yellow">UI</i> and more.
+    </p>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/Automation.svg"/>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/Automotive.svg"/>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/Desktop.svg"/>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/DTP.svg"/>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/Embeddeddev.svg"/>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/imac-iphone-ipad.svg"/>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/IOT.svg"/>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/Medical.svg"/>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/Perpetual_sub.svg"/>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/stopwatch.svg"/>
+<img style="width: 5%;background:0;border:0;" src="img/qticons/Training.svg"/>
+    <br/>
+    <span class="fragment fade-in" data-fragment-index="2">...but what about <i class="yellow">Python</i>?</span>
+  </section>
+  <!--***************************************************************************-->
+  <section>
+    <h3>It's 2008...</h3>
+    <h4>Which <i class="yellow">options</i> do we have?</h4>
+    <ul>
+        <li class="fragment fade-in" data-fragment-index="1">CPython</li>
+        <li class="fragment fade-in" data-fragment-index="2">SWIG - <i class="blue-light">http://www.swig.org/</i></li>
+        <li class="fragment fade-in" data-fragment-index="3">Boost::Python - <i class="blue-light">https://www.boost.org/</i></li>
+    </ul>
+  </section>
+  <!--***************************************************************************-->
+  <section>
+    <h2>The story of PySide</h2>
+    <div class="container">
+        <div class="fragment" data-fragment-index="1" style="display: inline-block;float: left;width:24%;">
+            <h3><i class="green">2008</i></h3>Qt4<br/>Development<br/>(PySide)
+        </div>
+        <div class="fragment" data-fragment-index="3" style="display: inline-block;width:24%;">
+            <h3><i class="green">2016</i></h3>Back<br/>to the<br/>Qt Project
+        </div>
+        <div class="fragment" data-fragment-index="2" style="float: left; width: 24%;">
+            <h3><i class="green">2015</i></h3>Qt5<br/>Port<br/>(PySide2)
+        </div>
+        <div class="fragment" data-fragment-index="4" style="float: right; width: 24%;">
+            <h3><i class="green">2018</i></h3><i class="yellow">Released</i><br/>(Qt for Python)
+        </div>
+    </div>
+  </section>
+  <!--***************************************************************************-->
+  <section>
+    <h2>How do we do it?</h2>
+    <img style="width: 90%; background: 0; border: 0;" src="img/process.png" />
+  </section>
+  <!--***************************************************************************-->
+  <section>
+    <h2>Shiboken<br/><i class="yellow">死某剣</i></h2>
+  </section>
+  <section>
+    <h3>Other nice options</h3>
+    <ul>
+        <li>pybind11 - <i class="blue-light">https://github.com/pybind/pybind11</i></li>
+        <li>cffi - <i class="blue-light">https://cffi.readthedocs.io</i></li>
+    </ul>
+  </section>
+  <section>
+    <div id="left30">
+    <p style="font-size: 450%;text-align: center;">
+    Q<i class="green">&amp;</i>A<br/>
+    </p>
+    </div>
+    <div id="right70">
+        <p style="margin-right: 10%; font-size: 90%;">
+            <a href="https://www.qt.io/qt-for-python">qt.io/qt-for-python</a><br/>
+            <a href="https://pyside.org">pyside.org</a><br/>
+            <br/>
+           @cmaureir<br/>
+        <img src="img/twitter.png" style="background: rgba(0,0,0,0);height: 50px; border: 0px;">
+        <img src="img/github_white.png"  style="background: rgba(0,0,0,0);height: 50px; border: 0px;">
+        <img src="img/linkedin.png"  style="background: rgba(0,0,0,0);height: 50px; border: 0px;"><br/>
+        </p>
+    </div>
+  </section>
+</div>
+</div>
+<!--*****************************************************************************-->
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+  <script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      transition: 'none', // none/fade/slide/convex/concave/zoom
+      // More info https://github.com/hakimel/reveal.js#dependencies
+      dependencies: [
+        { src: 'lib/js/classList.js', condition: function() {
+            return !document.body.classList;
+            }
+        },
+        { src: 'plugin/markdown/marked.js', condition: function() {
+            return !!document.querySelector( '[data-markdown]' );
+            }
+        },
+        { src: 'plugin/markdown/markdown.js', condition: function() {
+            return !!document.querySelector( '[data-markdown]' );
+            }
+        },
+        { src: 'plugin/highlight/highlight.js', async: true, callback: function() {
+            hljs.initHighlightingOnLoad();
+            }
+        },
+        { src: 'plugin/search/search.js', async: true },
+        { src: 'plugin/zoom-js/zoom.js', async: true },
+        { src: 'plugin/notes/notes.js', async: true }
+      ]
+    });
+  </script>
+<!--*****************************************************************************-->
+  <style type="text/css">
+  /* 1. Style header/footer <div> so they are positioned as desired. */
+  #header-left {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+  }
+  #header-right {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+  }
+  #footer-left {
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+  }
+
+  /* Slide division */
+  #left {
+    left:-8.33%;
+    text-align: left;
+    float: left;
+    width:50%;
+    z-index:-10;
+  }
+
+  #right {
+    left:31.25%;
+    top: 75px;
+    float: right;
+    text-align: right;
+    z-index:-10;
+    width:50%;
+  }
+
+  #rightl {
+    left:31.25%;
+    top: 75px;
+    float: right;
+    text-align: left;
+    z-index:-10;
+    width:50%;
+  }
+
+  #left70 {
+    left:-8.33%;
+    text-align: left;
+    float: left;
+    width:66%;
+    z-index:-10;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+  #right70 {
+    left:-8.33%;
+    text-align: right;
+    float: right;
+    width:66%;
+    z-index:-10;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  #right70l {
+    left:-8.33%;
+    text-align: left;
+    float: right;
+    width:66%;
+    z-index:-10;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  #left30 {
+    left:31.25%;
+    top: 75px;
+    float: left;
+    text-align: left;
+    z-index:-10;
+    width:26%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+  #right30 {
+    left:31.25%;
+    top: 75px;
+    float: right;
+    text-align: right;
+    z-index:-10;
+    width:26%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  /* styles */
+  .green {
+    color: #41cd52;
+    font-style: normal;
+  }
+
+  .green-dark {
+    color: #17a81a;
+    font-style: normal;
+  }
+
+  .gray {
+    color: #646464;
+    font-style: normal;
+  }
+  .blue {
+    color: #306998;
+    font-style: normal;
+  }
+  .blue-light {
+    color: #4B8BBE;
+    font-style: normal;
+  }
+  .yellow {
+    color: #FFD43B;
+    font-style: normal;
+  }
+  .yellow-light {
+    color: #FFE873;
+    font-style: normal;
+  }
+
+  .white {
+    color: #ffffff;
+    font-style: normal;
+  }
+
+  .red {
+    color: #ff6961;
+    font-style: normal;
+  }
+  </style>
+
+  <!-- 2. Create hidden header/footer <div> -->
+  <div id="hidden" style="display:none;">
+    <div id="header">
+      <div id="header-left"></div>
+      <div id="header-right"><img src="img/qt.png" width="150px" /></div>
+      <div id="footer-left"><p style="font-size: 14pt;margin-left: 20px;">EuroPython Basel, 2019 &nbsp;|&nbsp; <b>@cmaureir</b>
+        <img src="img/twitter.png" style="background: rgba(0,0,0,0);height: 20px; margin-bottom: -4px;border: 0px;">
+        <img src="img/github_white.png"  style="background: rgba(0,0,0,0);height: 20px; margin-bottom: -4px;border: 0px;">
+        <img src="img/linkedin.png"  style="background: rgba(0,0,0,0);height: 20px; margin-bottom: -4px;border: 0px;">
+      </p></div>
+    </div>
+  </div>
+
+  <script src="js/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript">
+    // 3. On Reveal.js ready event, copy header/footer <div> into each `.slide-background` <div>
+    var header = $('#header').html();
+    if ( window.location.search.match( /print-pdf/gi ) ) {
+      Reveal.addEventListener( 'ready', function( event ) {
+        $('.slide-background').append(header);
+      });
+    }
+    else {
+      $('div.reveal').append(header);
+     }
+  </script>
+<!--*****************************************************************************-->
+</body>
+</html>
