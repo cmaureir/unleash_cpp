@@ -1,5 +1,8 @@
 #!/bin/env python
+import sys
 from pathlib import Path
 
-a = list(Path("data").glob("**/*"))
-print(len(a))
+if sys.argv[1] == "r":
+    a = list(Path("data").glob("**/*"))
+else:
+    a = list(Path("data").glob("**"))

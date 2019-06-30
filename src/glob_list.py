@@ -1,5 +1,8 @@
 #!/bin/env python
+import sys
 from glob import glob
 
-a = glob("data/**", recursive=True)
-print(len(a))
+if sys.argv[1] == "r":
+    a = glob("data/**", recursive=True)
+else:
+    a = glob("data/**", recursive=False)

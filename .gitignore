@@ -1,0 +1,5 @@
+*.o
+*.so
+env
+src/data
+build

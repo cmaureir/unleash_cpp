@@ -64,6 +64,7 @@
             <li class="fragment fade-in" data-fragment-index="3">Statically typed</li>
             <li class="fragment fade-in" data-fragment-index="4">Compiled</li>
             <li class="fragment fade-in" data-fragment-index="5">Provides low-level memory manipulation</li>
+            <li class="fragment fade-in" data-fragment-index="6"><i class="red">Code readability ???</i></li>
         </ul>
     </div>
     <div id="right" style="text-align: left;">
@@ -171,9 +172,59 @@ int main() {
     </p>
   </section>
   <section>
-    <h3>...</h3>
-    C++ wants to go up.
-    Python wants to go down.
+    <h3>C++20 and Python: for</h3>
+    <pre style="font-size: 60%;width: 80%;"><code class="c++" data-trim data-noescape>
+    // ranges-v3
+    #include &lt;range/v3/all.hpp&gt;
+    using namespace std;
+    namespace v = ranges::view;
+
+    for (auto i : v::ints(0, 5))
+        cout &lt;&lt; i &lt;&lt; endl;
+        </code></pre>
+    <pre style="font-size: 60%;width: 80%;"><code class="python" data-trim data-noescape>
+    for i in range(0, 5):
+        print(i)
+        </code></pre>
+  </section>
+  <section>
+    <h3>C++20 and Python: palindrome</h3>
+    <pre style="font-size: 60%;width: 80%;"><code class="c++" data-trim data-noescape>
+    #include &lt;range/v3/all.hpp&gt;
+    namespace r = ranges;
+    namespace v = r::view;
+
+    bool is_palindrome(std::string_view word)
+    {
+        return r::equal(word, v::reverse(word));
+    }
+        </code></pre>
+    <pre style="font-size: 60%;width: 80%;"><code class="python" data-trim data-noescape>
+    def is_palindrome(word):
+        #return word == word[::-1]
+        return word == "".join(reversed(word))
+        </code></pre>
+  </section>
+  <section>
+    <div class="container">
+        <div style="display: inline-block;float: left;width:33%;">
+            <img style="background: 0; border: 0; width: 70%;" src="img/python.svg" />
+        </div>
+        <div style="float: left; width: 33%;font-size: 300%;">
+            <div style="position: relative;">
+            <img style="background: 0; border: 0; margin-top: 20%;width: 50%;" src="img/heart.png" />
+            </div>
+        </div>
+        <div style="float: right; width: 33%;">
+            <img style="background: 0; border: 0; width: 70%;" src="img/cpp_logo.svg" />
+        </div>
+    </div>
+  </section>
+  <section>
+    <img style="background: 0; border: 0; width: 30%;" src="img/cpp_python.svg" />
+  </section>
+  <section>
+    <h3>Extending Python with C++</h3>
   </section>
   <!--***************************************************************************-->
   <section>
@@ -192,7 +243,10 @@ typedef struct _object {
   </section>
   <!--***************************************************************************-->
   <section>
-    <h3>Creating a <i class="yellow-light">CPython</i> module</h3>
+    <h3>Creating a <i class="yellow-light">Python</i> module</h3>
+    <p>
+        Let's look at the code.
+    </p>
   </section>
   <!--***************************************************************************-->
   <section>
@@ -220,12 +274,12 @@ typedef struct _object {
   </section>
   <!--***************************************************************************-->
   <section>
-    <h3>It's 2008...</h3>
+    <h3>It's around 2007...</h3>
     <h4>Which <i class="yellow">options</i> do we have?</h4>
     <ul>
         <li class="fragment fade-in" data-fragment-index="1">CPython</li>
-        <li class="fragment fade-in" data-fragment-index="2">SWIG - <i class="blue-light">http://www.swig.org/</i></li>
-        <li class="fragment fade-in" data-fragment-index="3">Boost::Python - <i class="blue-light">https://www.boost.org/</i></li>
+        <li class="fragment fade-in" data-fragment-index="2">SWIG - <a href="http://www.swig.org/">swig.org</a></li>
+        <li class="fragment fade-in" data-fragment-index="3">Boost::Python - <a href="https://www.boost.org/">boost.org</a></li>
     </ul>
   </section>
   <!--***************************************************************************-->
@@ -254,12 +308,15 @@ typedef struct _object {
   <!--***************************************************************************-->
   <section>
     <h2>Shiboken<br/><i class="yellow">死某剣</i></h2>
+    <p>
+        <a href="https://doc.qt.io/qtforpython/shiboken2/">doc.qt.io/qtforpython/shiboken2</a>
+    </p>
   </section>
   <section>
     <h3>Other nice options</h3>
     <ul>
-        <li>pybind11 - <i class="blue-light">https://github.com/pybind/pybind11</i></li>
-        <li>cffi - <i class="blue-light">https://cffi.readthedocs.io</i></li>
+        <li>pybind11 - <a href="https://pybind11.readthedocs.io">pybind11.readthedocs.io</a></li>
+        <li>cffi - <a href="https://cffi.readthedocs.io">cffi.readthedocs.io</a></li>
     </ul>
   </section>
   <section>
@@ -270,9 +327,9 @@ typedef struct _object {
     </div>
     <div id="right70">
         <p style="margin-right: 10%; font-size: 90%;">
-            <a href="https://www.qt.io/qt-for-python">qt.io/qt-for-python</a><br/>
-            <a href="https://pyside.org">pyside.org</a><br/>
-            <br/>
+            Qt for Python<br/>
+            <a href="https://pyside.org">pyside.org</a><br/><br/><br/>
+            <a href="https://maureira.xyz">maureira.xyz</a><br/>
            @cmaureir<br/>
         <img src="img/twitter.png" style="background: rgba(0,0,0,0);height: 50px; border: 0px;">
         <img src="img/github_white.png"  style="background: rgba(0,0,0,0);height: 50px; border: 0px;">
