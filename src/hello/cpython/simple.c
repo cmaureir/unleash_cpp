@@ -1,7 +1,7 @@
 #include <Python.h>
 
 static PyObject* simple_hello(PyObject* self, PyObject* args){
-    char *msg = "Hello Python Pizza Berlin!";
+    char *msg = "Hello Euro Python 2019!";
     return Py_BuildValue("s", msg);
 }
 
@@ -16,7 +16,7 @@ static PyMethodDef simple_funcs[] = {
 static struct PyModuleDef simplemodule = {
     PyModuleDef_HEAD_INIT,
     "simple",
-    simple_docs,
+    NULL,
     -1,
     simple_funcs
 };

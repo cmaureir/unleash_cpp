@@ -54,7 +54,7 @@ macro(pyside2_config option output_var)
     endif()
 
     execute_process(
-      COMMAND ${python_interpreter} "${CMAKE_SOURCE_DIR}/../pyside2_config.py"
+      COMMAND ${python_interpreter} "${CMAKE_SOURCE_DIR}/pyside2_config.py"
               ${option}
       OUTPUT_VARIABLE ${output_var}
       OUTPUT_STRIP_TRAILING_WHITESPACE)

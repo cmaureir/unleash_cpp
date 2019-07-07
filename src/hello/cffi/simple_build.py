@@ -3,7 +3,7 @@ from cffi import FFI
 ffibuilder = FFI()
 ffibuilder.set_source("_simple","""
 char* hello() {
-   char *msg = "Hello Python Users Berlin!";
+   char *msg = "Hello Euro Python 2019!";
    return msg;
 }
     """)

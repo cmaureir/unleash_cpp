@@ -1,37 +1,29 @@
-#!/bin/env python
-
 import time
 from glob import glob
 from pathlib import Path
 from fastglob import glob as fglob
+import subprocess
 
 def benchmark(opt, recursive=False):
     print(f"{opt}: ", end="")
+    r = "r" if recursive else "n"
     start = time.time()
-
     if opt == "glob":
-        files = glob("data", recursive=recursive)
+        subprocess.call("python glob_list.py "+r, shell=True)
     elif opt == "Path":
-        if not recursive:
-            s = "**"
-        else:
-            s = "**/*"
-
-        files = Path("data").glob(s)
+        subprocess.call("python pathlib_list.py "+r, shell=True)
     elif opt == "fglob":
-        files = fglob("data", recursive=recursive)
-
-    l = list(files)
+        subprocess.call("python fastglob_list.py "+r, shell=True)
     print(time.time() - start)
 
 print("Non recursive")
-print("-" * 40)
 benchmark("glob", recursive=False)
 benchmark("Path", recursive=False)
 benchmark("fglob", recursive=False)
-
-print("Recursive")
 print("-" * 40)
+print()
+print("Recursive")
 benchmark("glob", recursive=True)
 benchmark("Path", recursive=True)
 benchmark("fglob", recursive=True)
+print("-" * 40)

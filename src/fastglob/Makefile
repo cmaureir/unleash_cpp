@@ -1,2 +1,2 @@
 all:
-	/usr/bin/python setup.py install --user
+	../../env/bin/python setup.py install  --force

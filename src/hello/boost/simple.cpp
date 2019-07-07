@@ -1,6 +1,6 @@
 char const* hello()
 {
-   return "Hello Python Users Berlin!";
+   return "Hello Euro Python 2019!";
 }
 
 #include <boost/python.hpp>

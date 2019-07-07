@@ -11,8 +11,6 @@ static PyObject* fastglob_glob(PyObject* self, PyObject* args, PyObject* kwds){
     const char *directory = nullptr;
     const int *recursive = nullptr;
 
-    //if (!PyArg_ParseTuple(args, "s", &directory))
-    //    return nullptr;
     if (!PyArg_ParseTupleAndKeywords(args, kwds,
                                      "z|p",
                                      const_cast<char **>(kwlist),

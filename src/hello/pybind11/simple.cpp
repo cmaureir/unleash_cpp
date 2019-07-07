@@ -1,7 +1,7 @@
 #include <pybind11/pybind11.h>
 
 std::string hello() {
-   std::string msg = "Hello Python Users Berlin!";
+   std::string msg = "Hello Euro Python 2019!";
    return msg;
 }
 
