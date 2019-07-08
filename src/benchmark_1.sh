@@ -1,9 +1,9 @@
-function measure()
+function profile_script()
 {
     echo -n "Non recursive: "
-    /usr/bin/time --format='%e' $1 n
+    /usr/bin/time --format='%e' python $1 n
     echo -n "Recursive: "
-    /usr/bin/time --format='%e' $1 r
+    /usr/bin/time --format='%e' python $1 r
     echo
 }
 
@@ -12,10 +12,10 @@ echo "Files: $(find data -type f | wc -l)"
 echo
 
 echo "glob"
-measure "./glob_list.py"
+profile_script "./glob_list.py"
 
 echo "Pathlib.glob"
-measure "./pathlib_list.py"
+profile_script "./pathlib_list.py"
 
 echo "fastglob.glob"
-measure "./fastglob_list.py"
+profile_script "./fastglob_list.py"

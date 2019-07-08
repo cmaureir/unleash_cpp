@@ -328,6 +328,7 @@ typedef struct _object {
         <li>pybind11 - <a href="https://pybind11.readthedocs.io">pybind11.readthedocs.io</a></li>
         <li>cffi - <a href="https://cffi.readthedocs.io">cffi.readthedocs.io</a></li>
         <li>cppyy - <a href="https://cppyy.readthedocs.io">cppyy.readthedocs.io</a></li>
+        <li>sip - <a href="https://riverbankcomputing.com/software/sip">riverbankcomputing.com/software/sip</a></li>
     </ul>
   </section>
   <section>
@@ -338,39 +339,52 @@ typedef struct _object {
   </section>
   <section>
     <h3>Summary</h3>
-    <table style="width:100%;font-size: 70%;">
+    <table style="width:100%;font-size: 65%;">
     <tr>
       <th></th>
       <th><i class="blue">Type</i></th>
       <th><i class="blue">C++</i></th>
+      <th><i class="blue">Python</i></th>
       <th><i class="blue">License</i></th>
-      <th><i class="blue">Supporters</i></th>
+      <th><i class="blue">Support</i></th>
     </tr>
     <tr>
       <td><i class="yellow">boost::python</i></td>
       <td>Interface</td>
-      <td>C++11,14,17</td>
+      <td>C++11<i class="yellow">+</i></td>
+      <td>2.7, 3.0</td>
       <td>BSL-1</td>
       <td>Boost</td>
     </tr>
     <tr>
       <td><i class="yellow">SWIG</i></td>
-      <td>Code generator</td>
-      <td>C++11,14,17</td>
+      <td>Code gen</td>
+      <td>C++11<i class="yellow">+</i></td>
+      <td>1.5+</td>
       <td>GPL3</td>
       <td>-</td>
     </tr>
     <tr>
       <td><i class="green">shiboken</i></td>
-      <td>Code generator</td>
+      <td>Code gen</td>
       <td>C++11 (*)</td>
+      <td>2.7, 3.5+</td>
       <td>LGPLv3</td>
       <td>Qt</td>
+    </tr>
+    <tr>
+      <td><i class="yellow">sip</i></td>
+      <td>Code gen</td>
+      <td>C++11 (*)</td>
+      <td>3.5+</td>
+      <td>GPLv3</td>
+      <td>Riverbank</td>
     </tr>
     <tr>
       <td><i class="yellow">pyBind11</i></td>
       <td>Interface</td>
       <td>C++11 (*)</td>
+      <td>2.7, 3.x</td>
       <td>BSD-3</td>
       <td>-</td>
     </tr>
@@ -378,13 +392,15 @@ typedef struct _object {
       <td><i class="yellow">cffi</i></td>
       <td>Interface</td>
       <td>C89, C99 (*)</td>
+      <td>2.6+, 3.0+</td>
       <td>MIT</td>
       <td>PyPy</td>
     </tr>
     <tr>
       <td><i class="yellow">cppyy</i></td>
       <td>Interface</td>
-      <td>C++11,14,17</td>
+      <td>C++11<i class="yellow">+</i></td>
+      <td>2 and 3</td>
       <td>UC</td>
       <td>-</td>
     </tr>

@@ -1,3 +1,5 @@
+all:
+	@echo ""
 clean:
 	cd cpython && make clean && cd ..
 	cd cffi && make clean && cd ..
