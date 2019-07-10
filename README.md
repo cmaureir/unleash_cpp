@@ -36,5 +36,6 @@ a similar result as `glob` and `Pathlib.glob`.
 
 ### Slides
 
-The slides are written using `reveal.js`.
+You can check the [slides here!](https://maureira.xyz/talks/qt/europython2019)
+to write them I used [reveal.js](https://github.com/hakimel/reveal.js/).
 
