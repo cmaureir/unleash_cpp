@@ -1,4 +1,4 @@
 all:
-	/usr/bin/python setup.py install --user
+	python setup.py install --user
 clean:
 	rm -rf build
