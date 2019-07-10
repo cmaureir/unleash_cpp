@@ -6,3 +6,4 @@ if sys.argv[1] == "r":
 else:
     a = glob("data/**", recursive=False)
 l = list(a)
+#print(len(l))

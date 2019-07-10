@@ -6,3 +6,4 @@ if sys.argv[1] == "r":
 else:
     a = list(Path("data").glob("**"))
 l = list(a)
+#print(len(l))
